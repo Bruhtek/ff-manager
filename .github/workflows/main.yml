@@ -18,7 +18,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: ghcr.io/bruhtek/kindle_dashboard
+          images: ghcr.io/bruhtek/ff-manager
           flavor: latest=true
           tags: |
             type=ref,event=branch
