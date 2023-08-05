@@ -45,7 +45,7 @@
 		</label>
 		<MultipleInput name="Tags" suggestions={data.tags}>
 			<!-- decorator -->
-			<Feather icon="hash" classes="h-4 w-4 text-gray-400 inline-block" />
+			<Feather icon="tag" classes="h-4 w-4 text-gray-400 inline-block" />
 		</MultipleInput>
 		<label>
 			Protection

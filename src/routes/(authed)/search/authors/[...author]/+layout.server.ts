@@ -14,7 +14,7 @@ export const load = (async ({ locals, params }) => {
 	}
 
 	const series = await getSeries(protection, {
-		authorFilter: params.author,
+		authorFilter: [params.author],
 	});
 
 	if (!series) return { series: [] };

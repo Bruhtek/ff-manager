@@ -14,7 +14,7 @@ export const load = (async ({ locals, params }) => {
 	}
 
 	const series = await getSeries(protection, {
-		tagFilter: params.tag,
+		tagFilter: [params.tag],
 	});
 
 	if (!series) return { series: [] };

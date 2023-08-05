@@ -2,6 +2,7 @@
 	import { Feather } from 'sveltekit-feather-icons';
 
 	let menuOpen = false;
+	export const closeMenu = () => (menuOpen = false);
 </script>
 
 <div class="relative">

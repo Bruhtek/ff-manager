@@ -1,11 +1,13 @@
-<script>
+<script lang="ts">
 	import { page } from '$app/stores';
-	import { toProperCase } from '$lib/Utilities/string.ts';
+	import { toProperCase } from '$lib/Utilities/string';
 
 	export let url = '#';
 	export let name = 'Home';
 
 	export let block = false;
+
+	export let onClick: () => never;
 </script>
 
 <a
@@ -16,7 +18,8 @@
 		hover:text-gray-100"
 	class:block
 	class:text-sm={!block}
-	class:bg-gray-900={url === $page.url.pathname}
+	class:bg-gray-900={$page.url.pathname.startsWith(url)}
+	on:click={onClick}
 >
 	{toProperCase(name)}
 </a>

@@ -26,6 +26,10 @@ div.success {
 .chapter-content p {
 	@apply indent-4 mb-2 text-justify;
 }
+.chapter-content img {
+	@apply w-full rounded p-4;
+}
+
 .card-item {
 	@apply block rounded shadow-lg bg-gray-700 relative p-2 md:p-4 hover:bg-gray-600
 	transition duration-300 ease-in-out;

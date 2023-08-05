@@ -8,7 +8,6 @@
 	import UploadMenu from '$lib/components/Navbar/UploadMenu.svelte';
 
 	const links: Record<string, string> = {
-		home: '/',
 		series: '/series',
 		search: '/search',
 	};
@@ -22,6 +21,13 @@
 	let menuOpen = false;
 
 	export let user: User | null;
+
+	let closeUpload: () => never;
+
+	const closeMenuAndUpload = () => {
+		menuOpen = false;
+		closeUpload();
+	};
 </script>
 
 <nav class="bg-gray-800">
@@ -39,9 +45,9 @@
 				<div class="hidden md:block">
 					<div class="ml-10 flex items-baseline space-x-4">
 						{#each Object.keys(links) as key}
-							<NavbarLink url={links[key]} name={key} />
+							<NavbarLink onClick={closeMenuAndUpload} url={links[key]} name={key} />
 						{/each}
-						<UploadMenu />
+						<UploadMenu bind:closeMenu={closeUpload} />
 					</div>
 				</div>
 			</div>
@@ -54,6 +60,7 @@
 								class="relative flex p-1 max-w-xs items-center rounded-full bg-gray-800 text-sm
 								focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2
 								focus:ring-offset-gray-800 hover:bg-gray-700 transition ease-in-out duration-300"
+								on:click={closeMenuAndUpload}
 							>
 								<span class="pr-3 pl-1">{user.username}</span>
 								<img
@@ -68,6 +75,7 @@
 								class="h-10 relative flex p-1 max-w-xs items-center rounded-full bg-gray-800
 								text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2
 								focus:ring-offset-gray-800 hover:bg-gray-700 transition ease-in-out duration-300"
+								on:click={closeMenuAndUpload}
 							>
 								<span class="pr-3 pl-1">
 									Login
@@ -99,6 +107,6 @@
 		</div>
 	</div>
 	{#if menuOpen}
-		<MobileMenu {user} links={mobileLinks} />
+		<MobileMenu onClick={closeMenuAndUpload} {user} links={mobileLinks} />
 	{/if}
 </nav>

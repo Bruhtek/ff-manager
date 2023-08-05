@@ -6,9 +6,14 @@
 
 	let selectedSuggestionIndex = -1;
 
+	export let onInput: () => void = () => {
+		// do nothing
+	};
+
 	const handleKeyDown = (e: KeyboardEvent) => {
 		if (e.key === 'Backspace' && valueInput === '') {
 			valueList = valueList.slice(0, -1);
+			onInput();
 			return;
 		}
 		if (e.key === ',' || e.key === 'Enter' || e.key === 'ArrowDown' || e.key === 'ArrowUp') {
@@ -42,13 +47,18 @@
 			newValue = existingValue;
 		}
 
-		valueList = [...valueList, newValue];
+		handleAddItem(newValue);
+	};
+
+	const handleAddItem = (item: string) => {
+		valueList = [...valueList, item];
 		// filter for duplicates
 		valueList = valueList.filter(
 			(value, index) => valueList.indexOf(value) === index && value !== '',
 		);
 		valueInput = '';
 		selectedSuggestionIndex = -1;
+		onInput();
 	};
 
 	$: possibleValues = suggestions.filter((value) =>
@@ -68,6 +78,7 @@
 
 	const deleteValue = (value: string) => {
 		valueList = valueList.filter((v) => v !== value);
+		onInput();
 	};
 </script>
 
@@ -78,18 +89,27 @@
 			type="text"
 			name=""
 			id="tagInput"
+			autocomplete="off"
 			bind:value={valueInput}
 			on:keydown={handleKeyDown}
 		/>
 	</label>
 	{#if valueInput && matchingValues.length > 0}
 		<div
-			class="absolute bottom-0 left-0 w-full bg-gray-900 transform translate-y-full shadow-xl rounded p-1"
+			class="absolute bottom-0 left-0 w-full bg-gray-900 transform translate-y-full shadow-xl rounded p-1 z-10"
 		>
 			{#each matchingValues as value, index}
-				<p class:bg-blue-400={index === selectedSuggestionIndex} class="rounded p-0.5">
+				<button
+					class:bg-blue-400={index === selectedSuggestionIndex}
+					on:click={() => {
+						valueInput = value;
+						selectedSuggestionIndex = -1;
+						handleAddItem(value);
+					}}
+					class="block rounded p-0.5 w-full text-left hover:bg-blue-400 transition duration-200"
+				>
 					{value}
-				</p>
+				</button>
 			{/each}
 		</div>
 	{/if}

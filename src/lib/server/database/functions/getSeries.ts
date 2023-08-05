@@ -3,8 +3,8 @@ import type { ISerie } from '$lib/server/database/schemas/SeriesSchema';
 import type { FilterQuery } from 'mongoose';
 
 interface Filters {
-	tagFilter?: string;
-	authorFilter?: string;
+	tagFilter?: string[];
+	authorFilter?: string[];
 }
 
 export default async (
@@ -23,11 +23,11 @@ export default async (
 	}
 	// if private, we don't need to filter
 
-	if (tagFilter) {
-		filters['tags'] = { $in: [tagFilter] };
+	if (tagFilter && tagFilter.length) {
+		filters['tags'] = { $all: tagFilter };
 	}
-	if (authorFilter) {
-		filters['authors'] = { $in: [authorFilter] };
+	if (authorFilter && authorFilter.length) {
+		filters['authors'] = { $all: authorFilter };
 	}
 
 	return await SerieModel.find(filters).exec();

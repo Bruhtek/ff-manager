@@ -3,6 +3,7 @@
 	import { Feather } from 'sveltekit-feather-icons';
 	import SerieContainer from '$lib/components/Series/SerieContainer.svelte';
 	import MultiButton from '$lib/components/Series/MultiButton.svelte';
+	import Header from '$lib/components/Generic/Header.svelte';
 
 	export let data: PageData;
 </script>
@@ -11,10 +12,7 @@
 	<title>Author: {data.author} - FF manager</title>
 </svelte:head>
 
-<div class="flex items-stretch justify-between flex-col md:flex-row mb-3">
-	<h1 class="inline-grid place-content-center text-4xl text-white text-center">
-		Search - "{data.author}"
-	</h1>
+<Header title="Author - {data.author}">
 	<MultiButton buttons={data.searchButtons} />
-</div>
+</Header>
 <SerieContainer series={data.series} />

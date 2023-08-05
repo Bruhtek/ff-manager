@@ -5,12 +5,13 @@
 
 	export let links: Record<string, string> = {};
 	export let user: User | null = null;
+	export let onClick: () => never;
 </script>
 
 <div class="md:hidden" id="mobile-menu">
 	<div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
 		{#each Object.keys(links) as key}
-			<NavbarLink block={true} url={links[key]} name={key} />
+			<NavbarLink {onClick} block={true} url={links[key]} name={key} />
 		{/each}
 		<hr />
 		{#if user}
@@ -20,6 +21,7 @@
 					font-medium text-white hover:bg-gray-700
 					transition-colors duration-200 ease-in-out
 					hover:text-gray-100 flex items-stretch"
+				on:click={onClick}
 			>
 				<span>{user.username}</span>
 				<img
@@ -35,6 +37,7 @@
 					font-medium text-white hover:bg-gray-700
 					transition-colors duration-200 ease-in-out
 					hover:text-gray-100 flex items-stretch"
+				on:click={onClick}
 			>
 				<span>
 					Login
