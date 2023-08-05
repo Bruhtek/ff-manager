@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+input[type=text], input[type=password], input[type=email], input[type=number], input[type=tel], input[type=url], input[type=search], textarea {
+  @apply block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-gray-900;
+}
+select {
+  @apply block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-gray-900;
+}
+
+pre {
+	@apply text-gray-400;
+}
+
+div.notification {
+	@apply bg-blue-400 my-2 block shadow-lg rounded text-white w-full px-3 py-2;
+}
+div.error {
+	@apply bg-red-400 text-white;
+}
+div.success {
+	@apply bg-green-400 text-white;
+}
+
+.chapter-content p {
+	@apply indent-4 mb-2 text-justify;
+}
+.card-item {
+	@apply block rounded shadow-lg bg-gray-700 relative p-2 md:p-4 hover:bg-gray-600
+	transition duration-300 ease-in-out;
+}
+
+.btn {
+	@apply inline-block px-4 py-2 rounded shadow-lg bg-gray-700 text-white
+	transition duration-300 ease-in-out;
+}
+.btn:hover {
+	@apply bg-gray-600;
+}
+.btn.disabled {
+	@apply opacity-50 cursor-not-allowed pointer-events-none;
+}
