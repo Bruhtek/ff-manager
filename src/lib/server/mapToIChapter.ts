@@ -2,7 +2,7 @@ import type { IChapter } from '$lib/server/database/schemas/ChapterSchema';
 import type { Document } from 'mongoose';
 
 export default (
-	chapter: Document<unknown, {}, IChapter> & IChapter & Required<{ _id: string }>,
+	chapter: Document<unknown, unknown, IChapter> & IChapter & Required<{ _id: string }>,
 ) => {
 	return {
 		_id: chapter._id,

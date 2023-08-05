@@ -11,7 +11,7 @@
 	const buttons = [{ text: 'Clear', icon: 'x', href: '/search' }];
 	let submitButton: HTMLInputElement;
 
-	const onSeachChange = () => {
+	const onSearchChange = () => {
 		if (submitButton) {
 			// we wait for the form to update, else we miss the last input
 			setTimeout(() => {
@@ -37,7 +37,7 @@
 	>
 		<div class="tags">
 			<MultipleInput
-				onInput={onSeachChange}
+				onInput={onSearchChange}
 				name="Tags"
 				suggestions={data.tags}
 				valueList={data.selectedTags}
@@ -47,7 +47,7 @@
 		</div>
 		<div class="authors">
 			<MultipleInput
-				onInput={onSeachChange}
+				onInput={onSearchChange}
 				name="Authors"
 				suggestions={data.authors}
 				valueList={data.selectedAuthors}

@@ -4,7 +4,7 @@ import getSeries from '$lib/server/database/functions/getSeries';
 import checkPermissions from '$lib/Utilities/checkPermissions';
 import mapToISerie from '$lib/server/mapToISerie';
 
-export const load = (async ({ params, locals }) => {
+export const load = (async ({ locals }) => {
 	const tags: string[] = await SerieModel.distinct('tags').exec();
 	tags.sort();
 

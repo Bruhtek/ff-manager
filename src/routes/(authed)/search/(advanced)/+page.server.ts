@@ -1,14 +1,9 @@
-import type { Actions, PageServerLoad } from './$types';
-import { redirect } from '@sveltejs/kit';
+import type { PageServerLoad } from './$types';
 import getSeries from '$lib/server/database/functions/getSeries';
 import getUserProtection from '$lib/Utilities/getUserProtection';
 import mapToISerie from '$lib/server/mapToISerie';
 
-export const actions = {
-	default: async ({ request, locals }) => {},
-} satisfies Actions;
-
-export const load = (async ({ request, url, locals }) => {
+export const load = (async ({ url, locals }) => {
 	const tags = url.searchParams.getAll('tags') as string[];
 	const authors = url.searchParams.getAll('authors') as string[];
 

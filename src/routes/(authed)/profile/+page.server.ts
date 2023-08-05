@@ -22,6 +22,7 @@ export const actions = {
 			const user = await findUserById(id);
 			const match = await bcrypt.compare(currentPassword, user.password);
 			if (!match) {
+				// noinspection ExceptionCaughtLocallyJS
 				throw new Error('Incorrect password');
 			}
 			user.password = await bcrypt.hash(newPassword, 10);

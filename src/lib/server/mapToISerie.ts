@@ -1,7 +1,7 @@
 import type { ISerie } from '$lib/server/database/schemas/SeriesSchema';
 import type { Document } from 'mongoose';
 
-export default (item: Document<unknown, {}, ISerie> & ISerie & Required<{ _id: string }>) => {
+export default (item: Document<unknown, unknown, ISerie> & ISerie & Required<{ _id: string }>) => {
 	return {
 		_id: item._id,
 		title: item.title,

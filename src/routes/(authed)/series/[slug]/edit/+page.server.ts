@@ -1,8 +1,6 @@
 import type { Actions } from '@sveltejs/kit';
 import { error, fail, redirect } from '@sveltejs/kit';
-import { uuid } from '$lib/Utilities/uuid';
 import type { ISerie } from '$lib/server/database/schemas/SeriesSchema';
-import createSerie from '$lib/server/database/functions/createSerie';
 import type { PageServerLoad } from './$types';
 import { SerieModel } from '$lib/server/database/schemas/SeriesSchema';
 import checkPermissions from '$lib/Utilities/checkPermissions';

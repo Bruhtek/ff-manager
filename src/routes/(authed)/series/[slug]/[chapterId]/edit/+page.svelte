@@ -3,7 +3,6 @@
 	import type { ActionData } from './$types';
 	import type { PageData } from './$types';
 	import { page } from '$app/stores';
-	import { onMount } from 'svelte';
 
 	export let form: ActionData;
 
@@ -69,6 +68,7 @@
 	</form>
 	<p>Chapter preview</p>
 	<div class="chapter-content text-sm text-gray-300">
+		<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 		{@html chapterContent}
 	</div>
 </div>

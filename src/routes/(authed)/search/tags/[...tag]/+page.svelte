@@ -1,6 +1,5 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import { Feather } from 'sveltekit-feather-icons';
 	import SerieContainer from '$lib/components/Series/SerieContainer.svelte';
 	import MultiButton from '$lib/components/Series/MultiButton.svelte';
 	import Header from '$lib/components/Generic/Header.svelte';

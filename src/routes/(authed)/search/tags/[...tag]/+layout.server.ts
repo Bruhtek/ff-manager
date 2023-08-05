@@ -1,6 +1,5 @@
 import type { LayoutServerLoad } from './$types';
 import getSeries from '$lib/server/database/functions/getSeries';
-import type { ISerie } from '$lib/server/database/schemas/SeriesSchema';
 import checkPermissions from '$lib/Utilities/checkPermissions';
 import mapToISerie from '$lib/server/mapToISerie';
 

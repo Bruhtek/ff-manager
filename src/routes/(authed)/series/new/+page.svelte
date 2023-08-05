@@ -17,10 +17,6 @@
 	{#if form?.error}
 		<div class="notification error">{form.error}</div>
 	{/if}
-
-	{#if form?.success}
-		<div class="notification success">{form.success}</div>
-	{/if}
 	<h1 class="font-bold text-4xl text-white">New Serie</h1>
 	<form
 		method="POST"

@@ -1,8 +1,5 @@
 import type { Actions } from '@sveltejs/kit';
 import { error, fail, redirect } from '@sveltejs/kit';
-import type { IChapter } from '$lib/server/database/schemas/ChapterSchema';
-import { uuid } from '$lib/Utilities/uuid';
-import createChapter from '$lib/server/database/functions/createChapter';
 import checkPermissions from '$lib/Utilities/checkPermissions';
 import type { PageServerLoad } from './$types';
 import getChapterById from '$lib/server/database/functions/getChapterById';
