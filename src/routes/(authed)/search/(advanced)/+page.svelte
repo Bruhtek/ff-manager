@@ -33,7 +33,7 @@
 		data-sveltekit-keepfocus
 		data-sveltekit-replacestate
 		method="GET"
-		class="grid grid-cols-2 gap-2"
+		class="grid grid-cols-1 sm:grid-cols-2 gap-2"
 	>
 		<div class="tags">
 			<MultipleInput
