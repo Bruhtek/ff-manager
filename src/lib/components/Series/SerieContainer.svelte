@@ -6,6 +6,7 @@
 	export let series: ISerie[];
 </script>
 
+<h3 class="w-full text-xl text-gray-400">Found {series.length} series</h3>
 <CardContainer>
 	{#each series as serie}
 		<a href="/series/{serie._id}" class="card-item">
