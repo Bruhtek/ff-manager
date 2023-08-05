@@ -3,8 +3,17 @@
 	import { Feather } from 'sveltekit-feather-icons';
 	import SerieContainer from '$lib/components/Series/SerieContainer.svelte';
 	import checkPermissions from '$lib/Utilities/checkPermissions';
+	import MultiButton from '$lib/components/Series/MultiButton.svelte';
 
 	export let data: PageData;
+
+	const buttons = [
+		{
+			icon: 'plus',
+			text: 'Add serie',
+			href: '/series/new',
+		},
+	];
 </script>
 
 <svelte:head>
@@ -14,15 +23,7 @@
 <div class="flex items-stretch justify-between flex-col md:flex-row mb-3">
 	<h1 class="inline-grid place-content-center text-4xl text-white">Series page</h1>
 	{#if checkPermissions(data.user, 'create:series')}
-		<a
-			href="/series/new"
-			class="flex place-content-center place-items-center bg-blue-500 hover:bg-blue-700
-		text-white font-bold py-2 px-4 rounded my-2 transition duration-200 ease-in-out
-		w-full md:w-max mt-3 md:mt-0"
-		>
-			<Feather icon="plus" classes="inline-block h-8 w-8" />
-			<span class="text-lg">New series</span>
-		</a>
+		<MultiButton {buttons} />
 	{/if}
 </div>
 <SerieContainer series={data.series} />

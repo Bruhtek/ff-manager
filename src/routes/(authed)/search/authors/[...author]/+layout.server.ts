@@ -4,7 +4,7 @@ import type { ISerie } from '$lib/server/database/schemas/SeriesSchema';
 import checkPermissions from '$lib/Utilities/checkPermissions';
 import mapToISerie from '$lib/server/mapToISerie';
 
-export const load = (async ({ locals }) => {
+export const load = (async ({ locals, params }) => {
 	let protection: 'public' | 'protected' | 'private' = 'public';
 	if (locals.user !== null) {
 		protection = 'protected';
@@ -13,11 +13,14 @@ export const load = (async ({ locals }) => {
 		protection = 'private';
 	}
 
-	const series = await getSeries(protection, {});
+	const series = await getSeries(protection, {
+		authorFilter: params.author,
+	});
 
 	if (!series) return { series: [] };
 
 	return {
 		series: series.map((item) => mapToISerie(item)),
+		author: params.author,
 	};
 }) satisfies LayoutServerLoad;

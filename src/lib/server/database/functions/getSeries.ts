@@ -1,16 +1,34 @@
 import { SerieModel } from '$lib/server/database/schemas/SeriesSchema';
+import type { ISerie } from '$lib/server/database/schemas/SeriesSchema';
+import type { FilterQuery } from 'mongoose';
 
-export default async (protection: 'public' | 'protected' | 'private' = 'public') => {
+interface Filters {
+	tagFilter?: string;
+	authorFilter?: string;
+}
+
+export default async (
+	protection: 'public' | 'protected' | 'private' = 'public',
+	{ tagFilter, authorFilter }: Filters,
+) => {
+	const filters: FilterQuery<ISerie> = {};
+
 	// if public, return only public
 	if (protection === 'public') {
-		return await SerieModel.find({ protection: 'public' }).exec();
+		filters['protection'] = 'public';
 	}
 	// if protected, return both public and protected
 	if (protection === 'protected') {
-		return await SerieModel.find({ protection: { $in: ['public', 'protected'] } }).exec();
+		filters['protection'] = { $in: ['public', 'protected'] };
 	}
-	// if private, return all
-	if (protection === 'private') {
-		return await SerieModel.find({}).exec();
+	// if private, we don't need to filter
+
+	if (tagFilter) {
+		filters['tags'] = { $in: [tagFilter] };
 	}
+	if (authorFilter) {
+		filters['authors'] = { $in: [authorFilter] };
+	}
+
+	return await SerieModel.find(filters).exec();
 };
