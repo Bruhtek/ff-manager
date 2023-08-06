@@ -26,7 +26,7 @@
 	</div>
 	<div class="text-lg text-gray-200">
 		{#each serie.authors as author, index}
-			<a href="/search/authors/{author}" class="hover:underline transition duration-200 mr-1">
+			<a href="/search?authors={author}" class="hover:underline transition duration-200 mr-1">
 				{author}{index < serie.authors.length - 1 ? ', ' : ''}
 			</a>
 		{/each}

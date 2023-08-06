@@ -6,7 +6,7 @@
 </script>
 
 <a
-	href="/search/tags/{tag}"
+	href="/search?tags={tag}"
 	class:bg-gray-800={!tagLight}
 	class:bg-gray-700={tagLight}
 	class="rounded inline-flex p-1 mr-1 mb-1 transition duration-200 hover:bg-gray-500"
