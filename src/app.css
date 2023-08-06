@@ -23,29 +23,34 @@ div.success {
 	@apply bg-green-400 text-white;
 }
 
-.chapter-content p {
-	@apply indent-4 mb-2 text-justify;
-}
-.chapter-content img {
-	@apply w-full rounded p-4;
-}
+@layer components {
+	.chapter-content p {
+		@apply indent-4 mb-2 text-justify;
+	}
 
-.card-item {
-	@apply block rounded shadow-lg bg-gray-700 relative p-2 md:p-4 hover:bg-gray-600
-	transition duration-300 ease-in-out;
-}
+	.chapter-content img {
+		@apply w-full rounded p-4;
+	}
 
-.btn {
-	@apply inline-block px-4 py-2 rounded shadow-lg bg-gray-700 text-white
-	transition duration-300 ease-in-out;
-}
-.btn:hover {
-	@apply bg-gray-600;
-}
-.btn.disabled {
-	@apply opacity-50 cursor-not-allowed pointer-events-none;
-}
+	.card-item {
+		@apply block rounded shadow-lg bg-gray-700 relative p-2 md:p-4 hover:bg-gray-600
+		transition duration-300 ease-in-out;
+	}
 
-.anchor-offset {
-	@apply -mt-10 pt-10;
+	.btn {
+		@apply inline-block px-4 py-2 rounded shadow-lg bg-gray-700 text-white
+		transition duration-300 ease-in-out;
+	}
+
+	.btn:hover {
+		@apply bg-gray-600;
+	}
+
+	.btn.disabled {
+		@apply opacity-50 cursor-not-allowed pointer-events-none;
+	}
+
+	.anchor-offset {
+		@apply -mt-10 pt-10;
+	}
 }

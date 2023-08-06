@@ -5,6 +5,7 @@
 	import SerieContainer from '$lib/components/Series/SerieContainer.svelte';
 	import MultipleInput from '$lib/components/Generic/MultipleInput.svelte';
 	import { Feather } from 'sveltekit-feather-icons';
+	import AdvancedOptions from '$lib/components/Search/AdvancedOptions.svelte';
 
 	export let data: PageData;
 
@@ -20,6 +21,8 @@
 			}, 100);
 		}
 	};
+
+	let advancedOptions = false;
 </script>
 
 <svelte:head>
@@ -56,6 +59,7 @@
 				<Feather icon="user" classes="h-4 w-4 inline-block text-gray-400" />
 			</MultipleInput>
 		</div>
+		<AdvancedOptions onChange={onSearchChange} />
 		<input type="submit" class="hidden" bind:this={submitButton} />
 	</form>
 </div>

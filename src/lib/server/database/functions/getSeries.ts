@@ -3,14 +3,17 @@ import { SerieModel } from '$lib/server/database/schemas/SeriesSchema';
 import type { FilterQuery } from 'mongoose';
 import ensureConnection from '$lib/server/database/utils/ensureConnection';
 
-interface Filters {
+export interface Options {
 	tagFilter?: string[];
 	authorFilter?: string[];
+	idFilter?: string[];
+	sort?: 'dateDesc' | 'dateAsc' | 'nameDesc' | 'nameAsc' | 'ratingDesc' | 'ratingAsc';
+	rating?: '1' | '2' | '3' | '4' | '5';
 }
 
 export default async (
 	protection: 'public' | 'protected' | 'private' = 'public',
-	{ tagFilter, authorFilter }: Filters,
+	{ tagFilter, authorFilter, idFilter, sort, rating }: Options,
 ) => {
 	await ensureConnection();
 
@@ -32,6 +35,41 @@ export default async (
 	if (authorFilter && authorFilter.length) {
 		filters['authors'] = { $all: authorFilter };
 	}
+	if (idFilter && idFilter.length) {
+		filters['_id'] = { $in: idFilter };
+	}
+	if (rating && rating !== '1') {
+		filters['rating'] = { $gte: parseInt(rating) };
+	}
 
-	return await SerieModel.find(filters).exec();
+	const series = await SerieModel.find(filters).exec();
+
+	switch (sort) {
+		case 'dateDesc':
+			return series.sort((a, b) => b.created.getTime() - a.created.getTime());
+		case 'dateAsc':
+			return series.sort((a, b) => a.created.getTime() - b.created.getTime());
+		case 'nameDesc':
+			return series.sort((a, b) => b.title.localeCompare(a.title));
+		case 'nameAsc':
+			return series.sort((a, b) => a.title.localeCompare(b.title));
+		case 'ratingDesc':
+			return series.sort((a, b) => {
+				if (!a.rating && !b.rating) return a.created.getTime() - b.created.getTime();
+				if (!a.rating) return 1;
+				if (!b.rating) return -1;
+				if (a.rating === b.rating) return a.created.getTime() - b.created.getTime();
+				return b.rating - a.rating;
+			});
+		case 'ratingAsc':
+			return series.sort((a, b) => {
+				if (!a.rating && !b.rating) return a.created.getTime() - b.created.getTime();
+				if (!a.rating) return -1;
+				if (!b.rating) return 1;
+				if (a.rating === b.rating) return a.created.getTime() - b.created.getTime();
+				return a.rating - b.rating;
+			});
+		default:
+			return series;
+	}
 };
