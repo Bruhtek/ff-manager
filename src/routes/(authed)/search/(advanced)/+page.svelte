@@ -15,6 +15,7 @@
 		if (submitButton) {
 			// we wait for the form to update, else we miss the last input
 			setTimeout(() => {
+				location.hash = '';
 				submitButton.click();
 			}, 100);
 		}

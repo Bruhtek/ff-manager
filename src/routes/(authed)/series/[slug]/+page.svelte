@@ -15,7 +15,7 @@
 			.split('; ')
 			.find((row) => row.startsWith('previousPage='));
 		if (prevCookie) {
-			previousPage = prevCookie.split('=')[1];
+			previousPage = prevCookie.split('=').slice(1).join('=');
 		} else {
 			previousPage = '/series';
 		}

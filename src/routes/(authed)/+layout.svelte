@@ -22,8 +22,11 @@
 		}
 
 		let selectedSeries = '';
+		if (navigation.from.url.searchParams) {
+			selectedSeries += '?' + navigation.from.url.searchParams.toString();
+		}
 		if (to.startsWith('/series/')) {
-			selectedSeries = '#' + to.replace('/series/', '');
+			selectedSeries += '#' + to.replace('/series/', '');
 		}
 
 		// history.replaceState({}, '', from + selectedSeries);
