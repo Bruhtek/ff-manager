@@ -9,9 +9,34 @@
 	export let serie: ISerie;
 	export let main = false;
 	export let user: User | null = null;
+
+	const toggleBookmark = async (e: Event) => {
+		e.stopPropagation();
+		e.preventDefault();
+
+		const res = await fetch(`/api/series/${serie._id}/bookmark`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ bookmark: !user?.bookmarks.includes(serie._id) }),
+		});
+
+		const status = await res.json();
+
+		if (res.ok && user) {
+			if (status) {
+				console.log('AAAAA');
+				user.bookmarks = [...user.bookmarks, serie._id];
+			} else {
+				console.log('BBBB');
+				user.bookmarks = user.bookmarks.filter((id) => id !== serie._id);
+			}
+		}
+	};
 </script>
 
-<div class="flex w-full flex-col mb-1" class:sm:flex-row={!main}>
+<div class="flex w-full flex-col mb-1">
 	<div class="font-bold relative" class:text-xl={!main} class:text-3xl={main}>
 		{#if main}
 			<div class="w-full sm:w-[unset] sm:absolute top-0 right-0 flex gap-2">
@@ -28,14 +53,31 @@
 			</div>
 		{/if}
 		<p>
+			{#if user}
+				{#if user.bookmarks.includes(serie._id)}
+					<button on:click={toggleBookmark}>
+						<Feather
+							icon="bookmark"
+							classes="mb-1 inline-block fill-white hover:fill-gray-500 transition duration-200"
+						/>
+					</button>
+				{:else if main}
+					<button on:click={toggleBookmark}>
+						<Feather
+							icon="bookmark"
+							classes="mb-1 inline-block fill-gray-500 hover:fill-white transition duration-200"
+						/>
+					</button>
+				{/if}
+			{/if}
 			{serie.title}
 			<SerieProtectionIcon protection={serie.protection} />
 		</p>
 	</div>
-	<div class="text-lg text-gray-200" class:sm:ml-auto={!main}>
-		{#each serie.authors as author}
-			<a href="/search/authors/{author}" class="hover:underline transition duration-200">
-				{author}
+	<div class="text-lg text-gray-200">
+		{#each serie.authors as author, index}
+			<a href="/search/authors/{author}" class="hover:underline transition duration-200 mr-1">
+				{author}{index < serie.authors.length - 1 ? ', ' : ''}
 			</a>
 		{/each}
 	</div>

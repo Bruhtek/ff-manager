@@ -59,4 +59,4 @@
 	</form>
 </div>
 
-<SerieContainer series={data.series} />
+<SerieContainer series={data.series} user={data.user} />

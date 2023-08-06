@@ -1,18 +1,10 @@
 import type { HydratedDocument } from 'mongoose';
-import mongoose from 'mongoose';
-
 import type { IUser } from '$lib/server/database/schemas/UserSchema';
 import { UserModel } from '$lib/server/database/schemas/UserSchema';
-
-import { env } from '$env/dynamic/private';
+import ensureConnection from '$lib/server/database/utils/ensureConnection';
 
 export default async (id: string): Promise<HydratedDocument<IUser>> => {
-	if (env.MONGODB_CONNECTION_STRING === undefined)
-		throw new Error('MONGODB_CONNECTION_STRING is undefined');
-
-	if (mongoose.connection.readyState !== 1) {
-		await mongoose.connect(env.MONGODB_CONNECTION_STRING);
-	}
+	await ensureConnection();
 
 	const user = await UserModel.findOne({ _id: id }).exec();
 

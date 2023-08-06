@@ -7,6 +7,7 @@ export interface IUser {
 	username: string;
 	password: string;
 	permissions: string[];
+	bookmarks: string[];
 }
 export interface IUserMethods {
 	checkPassword: (password: string) => Promise<boolean>;
@@ -19,6 +20,7 @@ export const UserSchema = new mongoose.Schema<IUser, UserDocument, IUserMethods>
 	username: { type: String, required: true },
 	password: { type: String, required: true },
 	permissions: { type: [String], required: true },
+	bookmarks: { type: [String], required: true },
 });
 UserSchema.method('checkPassword', async function (password: string): Promise<boolean> {
 	return await bcrypt.compare(password, this.password);

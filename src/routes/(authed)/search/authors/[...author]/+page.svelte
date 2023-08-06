@@ -14,4 +14,4 @@
 <Header title="Author - {data.author}">
 	<MultiButton buttons={data.searchButtons} />
 </Header>
-<SerieContainer series={data.series} />
+<SerieContainer series={data.series} user={data.user} />

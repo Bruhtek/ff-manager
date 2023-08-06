@@ -1,18 +1,10 @@
 import type { User } from '$lib/types/user';
-import mongoose from 'mongoose';
-
 import { TokenModel } from '$lib/server/database/schemas/TokenSchema';
-
-import { env } from '$env/dynamic/private';
 import { UserModel } from '$lib/server/database/schemas/UserSchema';
+import ensureConnection from '$lib/server/database/utils/ensureConnection';
 
 export default async (tokenString: string): Promise<User | null> => {
-	if (env.MONGODB_CONNECTION_STRING === undefined)
-		throw new Error('MONGODB_CONNECTION_STRING is undefined');
-
-	if (mongoose.connection.readyState !== 1) {
-		await mongoose.connect(env.MONGODB_CONNECTION_STRING);
-	}
+	await ensureConnection();
 
 	const token = await TokenModel.findOne({ token: tokenString });
 
@@ -33,5 +25,6 @@ export default async (tokenString: string): Promise<User | null> => {
 		id: user._id,
 		username: user.username ?? '',
 		permissions: user.permissions ?? [],
+		bookmarks: user.bookmarks ?? [],
 	};
 };

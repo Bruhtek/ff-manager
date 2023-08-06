@@ -1,6 +1,7 @@
-import { SerieModel } from '$lib/server/database/schemas/SeriesSchema';
 import type { ISerie } from '$lib/server/database/schemas/SeriesSchema';
+import { SerieModel } from '$lib/server/database/schemas/SeriesSchema';
 import type { FilterQuery } from 'mongoose';
+import ensureConnection from '$lib/server/database/utils/ensureConnection';
 
 interface Filters {
 	tagFilter?: string[];
@@ -11,6 +12,8 @@ export default async (
 	protection: 'public' | 'protected' | 'private' = 'public',
 	{ tagFilter, authorFilter }: Filters,
 ) => {
+	await ensureConnection();
+
 	const filters: FilterQuery<ISerie> = {};
 
 	// if public, return only public

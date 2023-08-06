@@ -10,4 +10,4 @@
 	};
 </script>
 
-<Feather icon={icons[protection]} classes="inline-block" />
+<Feather icon={icons[protection]} classes="inline-block stroke-gray-500" />
