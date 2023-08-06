@@ -9,7 +9,7 @@
 	<title>Login - FF manager</title>
 </svelte:head>
 
-<div class="max-w-xl mx-auto">
+<div class="max-w-xl mx-auto text-white">
 	{#if form?.missing}
 		<div class="notification error">Please fill in all fields.</div>
 	{/if}
