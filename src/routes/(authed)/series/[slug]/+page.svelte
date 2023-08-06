@@ -16,8 +16,9 @@
 			.find((row) => row.startsWith('previousPage='));
 		if (prevCookie) {
 			previousPage = prevCookie.split('=')[1];
+		} else {
+			previousPage = '/series';
 		}
-		previousPage = '/series';
 	}
 </script>
 
