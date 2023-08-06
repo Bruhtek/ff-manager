@@ -1,5 +1,5 @@
 import { SerieModel } from '$lib/server/database/schemas/SeriesSchema';
-import type { LayoutServerLoad } from '../../../../.svelte-kit/types/src/routes';
+import type { LayoutServerLoad } from './$types';
 import getSeries from '$lib/server/database/functions/getSeries';
 import checkPermissions from '$lib/Utilities/checkPermissions';
 import mapToISerie from '$lib/server/mapToISerie';

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { PageData } from '../../../../.svelte-kit/types/src/routes';
+	import type { PageData } from './$types';
 	import Header from '$lib/components/Generic/Header.svelte';
 	import MultiButton from '$lib/components/Generic/MultiButton.svelte';
 	import SerieContainer from '$lib/components/Series/SerieContainer.svelte';

@@ -1,7 +1,7 @@
 import type { RequestHandler } from './$types';
 import { SerieModel } from '$lib/server/database/schemas/SeriesSchema';
 
-export const POST = (async ({ params, request, locals }) => {
+export const POST = (async ({ params, request }) => {
 	const { rating } = await request.json();
 	const series = await SerieModel.findById(params.slug ?? '');
 

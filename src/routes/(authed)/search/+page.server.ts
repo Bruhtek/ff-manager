@@ -1,4 +1,4 @@
-import type { PageServerLoad } from '../../../../.svelte-kit/types/src/routes';
+import type { PageServerLoad } from './$types';
 import getSeries from '$lib/server/database/functions/getSeries';
 import getUserProtection from '$lib/Utilities/getUserProtection';
 import mapToISerie from '$lib/server/mapToISerie';
