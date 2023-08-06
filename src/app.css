@@ -45,3 +45,7 @@ div.success {
 .btn.disabled {
 	@apply opacity-50 cursor-not-allowed pointer-events-none;
 }
+
+.anchor-offset {
+	@apply -mt-10 pt-10;
+}

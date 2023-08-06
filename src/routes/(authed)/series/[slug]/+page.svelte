@@ -4,15 +4,28 @@
 	import { Feather } from 'sveltekit-feather-icons';
 	import CardContainer from '$lib/components/Generic/CardContainer.svelte';
 	import checkPermissions from '$lib/Utilities/checkPermissions';
+	import { browser } from '$app/environment';
 
 	export let data: PageData;
+
+	let previousPage = '/series';
+
+	$: if (browser) {
+		const prevCookie = document.cookie
+			.split('; ')
+			.find((row) => row.startsWith('previousPage='));
+		if (prevCookie) {
+			previousPage = prevCookie.split('=')[1];
+		}
+		previousPage = '/series';
+	}
 </script>
 
 <svelte:head>
 	<title>{data.serie.title} - FF manager</title>
 </svelte:head>
 
-<SerieInfo main={true} serie={data.serie} user={data.user} />
+<SerieInfo backHref={previousPage} main={true} serie={data.serie} user={data.user} />
 <div class="flex justify-between my-3 align-middle">
 	<h3 class="text-2xl font-bold mt-1">Chapters</h3>
 	{#if checkPermissions(data.user, 'create:chapters')}
