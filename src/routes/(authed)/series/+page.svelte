@@ -2,7 +2,7 @@
 	import type { PageData } from './$types';
 	import SerieContainer from '$lib/components/Series/SerieContainer.svelte';
 	import checkPermissions from '$lib/Utilities/checkPermissions';
-	import MultiButton from '$lib/components/Series/MultiButton.svelte';
+	import MultiButton from '$lib/components/Generic/MultiButton.svelte';
 	import Header from '$lib/components/Generic/Header.svelte';
 
 	export let data: PageData;
