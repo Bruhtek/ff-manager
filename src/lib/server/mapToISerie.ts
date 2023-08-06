@@ -11,5 +11,6 @@ export default (item: Document<unknown, unknown, ISerie> & ISerie & Required<{ _
 		summary: item.summary,
 		chapterIds: item.chapterIds,
 		protection: item.protection,
+		rating: item.rating,
 	} as ISerie;
 };

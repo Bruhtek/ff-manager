@@ -5,6 +5,7 @@
 	import type { User } from '$lib/types/user';
 	import SerieBookmark from '$lib/components/Series/SerieBookmark.svelte';
 	import SerieButtons from '$lib/components/Series/SerieButtons.svelte';
+	import SerieRating from '$lib/components/Series/SerieRating.svelte';
 
 	export let serie: ISerie;
 	export let main = false;
@@ -18,7 +19,7 @@
 			<SerieButtons {backHref} {serie} {user} />
 		{/if}
 		<p>
-			<SerieBookmark {serie} {user} {main} />
+			<SerieBookmark {serie} {user} />
 			{serie.title}
 			<SerieProtectionIcon protection={serie.protection} />
 		</p>
@@ -31,6 +32,7 @@
 		{/each}
 	</div>
 </div>
+
 <div class="text-sm text-gray-400 mb-2">
 	{#if serie.chapterIds.length === 1}
 		{serie.chapterIds.length} chapter
@@ -38,9 +40,13 @@
 		{serie.chapterIds.length} chapters
 	{/if}
 </div>
+
+<SerieRating {serie} />
+
 <div class="text-sm">
 	{serie.summary}
 </div>
+
 <div class="w-full mt-3">
 	{#if serie.tags.length <= 20 || main}
 		{#each serie.tags as tag}

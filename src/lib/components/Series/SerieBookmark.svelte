@@ -5,7 +5,6 @@
 
 	export let user: User | null;
 	export let serie: ISerie;
-	export let main = false;
 
 	const toggleBookmark = async (e: Event) => {
 		e.stopPropagation();
@@ -39,11 +38,11 @@
 				classes="mb-1 inline-block fill-white hover:fill-gray-500 transition duration-200"
 			/>
 		</button>
-	{:else if main}
+	{:else}
 		<button on:click={toggleBookmark}>
 			<Feather
 				icon="bookmark"
-				classes="mb-1 inline-block fill-gray-500 hover:fill-white transition duration-200"
+				classes="mb-1 inline-block fill-none hover:fill-gray-500 transition duration-200"
 			/>
 		</button>
 	{/if}
