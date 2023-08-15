@@ -10,6 +10,14 @@
 	$: chapter = data.chapters[chapterIndex];
 </script>
 
+<svelte:head>
+	{#if chapter}
+		<title>{chapter.title} - {data.serie.title} - FF-manager</title>
+	{:else}
+		<title>Chapter not found - FF-manager</title>
+	{/if}
+</svelte:head>
+
 {#if chapter}
 	<div
 		class="w-full flex flex-col sm:flex-row justify-between sm:justify-center align-middle mb-3 gap-3"

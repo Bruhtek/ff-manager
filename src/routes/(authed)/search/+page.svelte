@@ -21,8 +21,6 @@
 			}, 100);
 		}
 	};
-
-	let advancedOptions = false;
 </script>
 
 <svelte:head>

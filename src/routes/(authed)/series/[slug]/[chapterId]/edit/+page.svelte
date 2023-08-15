@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import type { ActionData } from './$types';
-	import type { PageData } from './$types';
+	import type { ActionData, PageData } from './$types';
 	import { page } from '$app/stores';
 
 	export let form: ActionData;
@@ -19,7 +18,7 @@
 </script>
 
 <svelte:head>
-	<title>Edit Chapter - FF manager</title>
+	<title>Edit {chapter.title} - FF manager</title>
 </svelte:head>
 
 <div class="flex flex-col lg:p-4">
