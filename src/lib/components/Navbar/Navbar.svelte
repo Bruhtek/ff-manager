@@ -5,28 +5,23 @@
 	import MobileMenu from './MobileMenu.svelte';
 	import type { User } from '$lib/types/user';
 	import { Feather } from 'sveltekit-feather-icons';
-	import UploadMenu from '$lib/components/Navbar/UploadMenu.svelte';
 
 	const links: Record<string, string> = {
 		series: '/series',
 		search: '/search',
+		import: '/import',
 	};
 
 	$: mobileLinks = {
 		...links,
-		...{ manualUpload: '/upload-manual' },
-		...{ import: '/upload-import' },
 	};
 
 	let menuOpen = false;
 
 	export let user: User | null;
 
-	let closeUpload: () => never;
-
-	const closeMenuAndUpload = () => {
+	const closeMenu = () => {
 		menuOpen = false;
-		closeUpload();
 	};
 </script>
 
@@ -45,9 +40,8 @@
 				<div class="hidden md:block">
 					<div class="ml-10 flex items-baseline space-x-4">
 						{#each Object.keys(links) as key}
-							<NavbarLink onClick={closeMenuAndUpload} url={links[key]} name={key} />
+							<NavbarLink onClick={closeMenu} url={links[key]} name={key} />
 						{/each}
-						<UploadMenu bind:closeMenu={closeUpload} />
 					</div>
 				</div>
 			</div>
@@ -60,7 +54,7 @@
 								class="relative flex p-1 max-w-xs items-center rounded-full bg-gray-800 text-sm
 								focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2
 								focus:ring-offset-gray-800 hover:bg-gray-700 transition ease-in-out duration-300"
-								on:click={closeMenuAndUpload}
+								on:click={closeMenu}
 							>
 								<span class="pr-3 pl-1">{user.username}</span>
 								<img
@@ -75,7 +69,7 @@
 								class="h-10 relative flex p-1 max-w-xs items-center rounded-full bg-gray-800
 								text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2
 								focus:ring-offset-gray-800 hover:bg-gray-700 transition ease-in-out duration-300"
-								on:click={closeMenuAndUpload}
+								on:click={closeMenu}
 							>
 								<span class="pr-3 pl-1">
 									Login
@@ -107,6 +101,6 @@
 		</div>
 	</div>
 	{#if menuOpen}
-		<MobileMenu onClick={closeMenuAndUpload} {user} links={mobileLinks} />
+		<MobileMenu onClick={closeMenu} {user} links={mobileLinks} />
 	{/if}
 </nav>

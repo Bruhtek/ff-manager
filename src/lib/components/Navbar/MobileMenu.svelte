@@ -5,7 +5,7 @@
 
 	export let links: Record<string, string> = {};
 	export let user: User | null = null;
-	export let onClick: () => never;
+	export let onClick: () => unknown;
 </script>
 
 <div class="md:hidden" id="mobile-menu">

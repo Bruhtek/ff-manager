@@ -7,7 +7,7 @@
 
 	export let block = false;
 
-	export let onClick: () => never;
+	export let onClick: () => unknown;
 </script>
 
 <a
