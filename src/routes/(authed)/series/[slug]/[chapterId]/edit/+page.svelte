@@ -15,6 +15,30 @@
 	$: if (chapter && !chapterContent) {
 		chapterContent = chapter.content;
 	}
+
+	const walkTheDOM = (el: Element, callback: (el: Element) => void) => {
+		callback(el);
+		el = el.firstElementChild! || el.nextElementSibling!;
+		while (el) {
+			walkTheDOM(el, callback);
+			el = el.nextElementSibling!;
+		}
+	};
+
+	const removeAttributes = (html: string) => {
+		if (!document) return html;
+
+		const wrapper = document.createElement('div');
+		wrapper.innerHTML = html;
+		walkTheDOM(wrapper.firstElementChild!, (el) => {
+			if (el.removeAttribute) {
+				el.removeAttribute('class');
+				el.removeAttribute('style');
+				el.removeAttribute('id');
+			}
+		});
+		return wrapper.innerHTML;
+	};
 </script>
 
 <svelte:head>
@@ -26,8 +50,8 @@
 		<div class="notification error">{form.error}</div>
 	{/if}
 
-	<h1 class="font-bold text-4xl text-white">Upload Chapter</h1>
-	<form use:enhance method="POST" class="w-full block">
+	<h1 class="text-4xl font-bold text-white">Upload Chapter</h1>
+	<form use:enhance method="POST" class="block w-full">
 		<label>
 			Title
 			<input type="text" name="title" value={chapter.title} />
@@ -46,12 +70,12 @@
 		</label>
 		<button
 			formaction="?/save"
-			class="ml-auto mt-3 bg-blue-400 text-white py-2 px-3 rounded
-				hover:bg-blue-500 transition-colors duration-200 ease-in-out"
+			class="ml-auto mt-3 rounded bg-blue-400 px-3 py-2 text-white
+				transition-colors duration-200 ease-in-out hover:bg-blue-500"
 		>
 			Save
 		</button>
-		<a href="/series/{data.serie._id}/{chapter._id}" class="ml-auto mt-3 btn"> Back </a>
+		<a href="/series/{data.serie._id}/{chapter._id}" class="btn ml-auto mt-3"> Back </a>
 		<button
 			formaction="?/delete"
 			on:click={(e) => {
@@ -59,10 +83,20 @@
 					e.preventDefault();
 				}
 			}}
-			class="ml-auto mt-3 bg-red-400 text-white py-2 px-3 rounded
-				hover:bg-red-500 transition-colors duration-200 ease-in-out"
+			class="ml-auto mt-3 rounded bg-red-400 px-3 py-2 text-white
+				transition-colors duration-200 ease-in-out hover:bg-red-500"
 		>
 			Delete
+		</button>
+		<button
+			type="button"
+			class="ml-auto mt-3 rounded bg-green-400 px-3 py-2 text-white transition-colors
+			duration-200 ease-in-out hover:bg-green-500"
+			on:click={() => {
+				chapterContent = removeAttributes(chapterContent);
+			}}
+		>
+			Clean-Up
 		</button>
 	</form>
 	<p>Chapter preview</p>

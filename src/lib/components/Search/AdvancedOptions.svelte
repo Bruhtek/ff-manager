@@ -30,7 +30,7 @@
 	};
 </script>
 
-<div class="col-span-2">
+<div class="sm:col-span-2">
 	<button
 		class="btn w-full transition duration-300 ease-linear"
 		on:click={toggleAdvanced}
@@ -39,15 +39,15 @@
 		Toggle advanced options
 	</button>
 	<div
-		class="col-span-2 overflow-hidden transition-all duration-300
-		ease-linear border-gray-600 border-4 border-t-0 rounded-b"
+		class="col-span-2 overflow-hidden rounded-b border-4
+		border-t-0 border-gray-600 transition-all duration-300 ease-linear"
 		class:border-0={!advancedOptions}
 		class:p-2={advancedOptions}
 		class:p-0={!advancedOptions}
 		class:max-h-0={!advancedOptions}
 		class:max-h-60={advancedOptions}
 	>
-		<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+		<div class="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
 			<Checkbox {onChange} name="onlyBookmarked" />
 			<Select {onChange} name="sort" options={sortOptions} />
 			<Select {onChange} name="rating" options={ratingOptions} />

@@ -19,7 +19,7 @@
 	$: if (chapters.length === 0 && data) {
 		chapters = data.serieData.chapters.map((c) => ({
 			...c,
-			originalContent: c.content,
+			originalContent: removeAttributes(c.content),
 		}));
 	}
 
@@ -42,6 +42,30 @@
 			url: chapter.url,
 		});
 	};
+
+	const walkTheDOM = (el: Element, callback: (el: Element) => void) => {
+		callback(el);
+		el = el.firstElementChild! || el.nextElementSibling!;
+		while (el) {
+			walkTheDOM(el, callback);
+			el = el.nextElementSibling!;
+		}
+	};
+
+	const removeAttributes = (html: string) => {
+		if (!document) return html;
+
+		const wrapper = document.createElement('div');
+		wrapper.innerHTML = html;
+		walkTheDOM(wrapper.firstElementChild!, (el) => {
+			if (el.removeAttribute) {
+				el.removeAttribute('class');
+				el.removeAttribute('style');
+				el.removeAttribute('id');
+			}
+		});
+		return wrapper.innerHTML;
+	};
 </script>
 
 <svelte:head>
@@ -50,7 +74,7 @@
 
 <form
 	method="POST"
-	class="w-full block"
+	class="block w-full"
 	use:enhance={({ cancel, submitter }) => {
 		if (submitter?.id === 'tagInput') {
 			cancel();
@@ -88,7 +112,7 @@
 		</label>
 	</div>
 
-	<hr class="border-t-2 border-white my-2" />
+	<hr class="my-2 border-t-2 border-white" />
 
 	<div class="my-4">
 		<p class="text-2xl text-gray-300">Transformers:</p>
@@ -114,7 +138,7 @@
 
 				<div>
 					<div class="text-xl text-gray-300">Summary:</div>
-					<div class="chapter-summary chapter-summary text-sm text-gray-300 mb-4">
+					<div class="chapter-summary chapter-summary mb-4 text-sm text-gray-300">
 						{chapter.summary}
 					</div>
 					<div class="text-xl text-gray-300">Content:</div>
@@ -128,8 +152,8 @@
 	</div>
 
 	<button
-		class="ml-auto mt-3 bg-blue-400 text-white py-2 px-3 rounded
-				hover:bg-blue-500 transition-colors duration-200 ease-in-out"
+		class="ml-auto mt-3 rounded bg-blue-400 px-3 py-2 text-white
+				transition-colors duration-200 ease-in-out hover:bg-blue-500"
 	>
 		Submit
 	</button>

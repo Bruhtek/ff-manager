@@ -35,9 +35,9 @@
 		data-sveltekit-keepfocus
 		data-sveltekit-replacestate
 		method="GET"
-		class="grid grid-cols-1 sm:grid-cols-2 gap-2"
+		class="grid grid-cols-1 gap-2 sm:grid-cols-2"
 	>
-		<div class="tags">
+		<div>
 			<MultipleInput
 				onInput={onSearchChange}
 				name="Tags"
@@ -47,7 +47,7 @@
 				<Feather icon="tag" classes="h-4 w-4 inline-block text-gray-400" />
 			</MultipleInput>
 		</div>
-		<div class="authors">
+		<div>
 			<MultipleInput
 				onInput={onSearchChange}
 				name="Authors"
