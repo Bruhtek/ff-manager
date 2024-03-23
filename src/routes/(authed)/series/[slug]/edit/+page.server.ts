@@ -8,10 +8,10 @@ import getSerieById from '$lib/server/database/functions/getSerieById';
 
 export const load = (async ({ locals }) => {
 	if (locals.user === null) {
-		throw error(401, 'Not logged in');
+		error(401, 'Not logged in');
 	}
 	if (!checkPermissions(locals.user, 'edit:series')) {
-		throw error(403, 'Not authorized');
+		error(403, 'Not authorized');
 	}
 
 	const tags: string[] = await SerieModel.distinct('tags').exec();
@@ -68,14 +68,14 @@ export const actions = {
 
 		await serie.save();
 
-		throw redirect(302, `/series/${params.slug}`);
+		redirect(302, `/series/${params.slug}`);
 	},
 	delete: async ({ params }) => {
 		const res = await SerieModel.deleteOne({ _id: params.slug }).exec();
 		if (res.deletedCount === 0) {
-			throw error(404, 'Serie not found');
+			error(404, 'Serie not found');
 		}
 
-		throw redirect(302, `/series`);
+		redirect(302, `/series`);
 	},
 } satisfies Actions;

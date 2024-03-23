@@ -12,7 +12,7 @@ const auth: Handle = async ({ event, resolve }) => {
 		if (user) {
 			event.locals.user = user;
 		} else {
-			event.cookies.delete('sessionToken');
+			/* @migration task: add path argument */ event.cookies.delete('sessionToken');
 		}
 	}
 

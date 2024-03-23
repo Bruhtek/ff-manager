@@ -7,10 +7,10 @@ import { ChapterModel } from '$lib/server/database/schemas/ChapterSchema';
 
 export const load = (async ({ locals }) => {
 	if (locals.user === null) {
-		throw error(401, 'Not logged in');
+		error(401, 'Not logged in');
 	}
 	if (!checkPermissions(locals.user, 'edit:chapters')) {
-		throw error(403, 'Not authorized');
+		error(403, 'Not authorized');
 	}
 
 	return {};
@@ -49,7 +49,7 @@ export const actions = {
 
 		await chapter.save();
 
-		throw redirect(302, `/series/${params.slug}/${chapter._id}`);
+		redirect(302, `/series/${params.slug}/${chapter._id}`);
 	},
 	delete: async ({ params }) => {
 		const res = await ChapterModel.deleteOne({ _id: params.chapterId });
@@ -59,6 +59,6 @@ export const actions = {
 			});
 		}
 
-		throw redirect(302, `/series/${params.slug}`);
+		redirect(302, `/series/${params.slug}`);
 	},
 } satisfies Actions;

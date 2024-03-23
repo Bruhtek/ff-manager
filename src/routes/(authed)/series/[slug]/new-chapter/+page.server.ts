@@ -8,10 +8,10 @@ import type { PageServerLoad } from './$types';
 
 export const load = (async ({ locals }) => {
 	if (locals.user === null) {
-		throw error(401, 'Not logged in');
+		error(401, 'Not logged in');
 	}
 	if (!checkPermissions(locals.user, 'create:chapters')) {
-		throw error(403, 'Not authorized');
+		error(403, 'Not authorized');
 	}
 
 	return {};

@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt';
 
 export const actions = {
 	logout: async ({ locals, cookies }) => {
-		cookies.delete('sessionToken');
+		/* @migration task: add path argument */ cookies.delete('sessionToken');
 		locals.user = null;
 
 		return {
@@ -28,7 +28,7 @@ export const actions = {
 			user.password = await bcrypt.hash(newPassword, 10);
 			await user.save();
 
-			cookies.delete('sessionToken');
+			/* @migration task: add path argument */ cookies.delete('sessionToken');
 			locals.user = null;
 
 			return {

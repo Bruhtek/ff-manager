@@ -6,7 +6,7 @@ export const load = (async ({ params }) => {
 	const wantedImporter = params.importer;
 	const importer = pageImporterData.find((i) => i.name === wantedImporter);
 	if (!importer) {
-		throw error(404, 'Importer not found');
+		error(404, 'Importer not found');
 	}
 
 	return {

@@ -9,10 +9,10 @@ import checkPermissions from '$lib/Utilities/checkPermissions';
 
 export const load = (async ({ locals }) => {
 	if (locals.user === null) {
-		throw error(401, 'Not logged in');
+		error(401, 'Not logged in');
 	}
 	if (!checkPermissions(locals.user, 'create:series')) {
-		throw error(403, 'Not authorized');
+		error(403, 'Not authorized');
 	}
 
 	const tags: string[] = await SerieModel.distinct('tags').exec();
@@ -67,6 +67,6 @@ export const actions = {
 
 		await createSerie(serie);
 
-		throw redirect(302, `/series/${serie._id}`);
+		redirect(302, `/series/${serie._id}`);
 	},
 } satisfies Actions;

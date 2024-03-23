@@ -9,10 +9,10 @@ import mapToISerie from '$lib/server/mapToISerie';
 export const load = (async ({ params, locals }) => {
 	const serie = await getSerieById(params.slug);
 
-	if (!serie) throw error(404, 'Serie not found');
+	if (!serie) error(404, 'Serie not found');
 
 	const canAccess = canUserSeeThis(locals.user, serie.protection);
-	if (!canAccess) throw error(403, 'You do not have permission to view this serie');
+	if (!canAccess) error(403, 'You do not have permission to view this serie');
 
 	const chapters = await getChaptersBySerieId(serie._id);
 

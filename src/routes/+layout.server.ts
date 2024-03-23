@@ -3,7 +3,7 @@ import { redirect } from '@sveltejs/kit';
 
 export const load = (({ locals }) => {
 	if (locals.user === null) {
-		throw redirect(307, '/login');
+		redirect(307, '/login');
 	}
 
 	return {

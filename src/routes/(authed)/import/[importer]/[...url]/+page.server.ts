@@ -15,12 +15,12 @@ export const load = (async ({ params }) => {
 
 	const importer = importers.find((i) => i.name === wantedImporter);
 	if (!importer) {
-		throw error(404, 'Importer not found');
+		error(404, 'Importer not found');
 	}
 
 	const serieData = await importer.getDataFromURL(serieUrl);
 	if ('error' in serieData) {
-		throw error(500, serieData.error);
+		error(500, serieData.error);
 	}
 
 	serieData.name = serieData.name.trim();
@@ -102,6 +102,6 @@ export const actions = {
 			await createChapter(chapter);
 		}
 
-		throw redirect(302, `/series/${serie._id}`);
+		redirect(302, `/series/${serie._id}`);
 	},
 } satisfies Actions;
