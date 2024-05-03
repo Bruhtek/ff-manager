@@ -4,6 +4,8 @@
 	import MultipleInput from '$lib/components/Generic/MultipleInput.svelte';
 	import { Feather } from 'sveltekit-feather-icons';
 	import type { ChapterData, TextTransformer } from '$lib/importer/main';
+	import { browser } from '$app/environment';
+	import { removeAttributes } from '$lib/Utilities/text';
 
 	export let data: PageData;
 	export let form: ActionData;
@@ -17,10 +19,17 @@
 
 	let chapters: Chapter[] = [];
 	$: if (chapters.length === 0 && data) {
-		chapters = data.serieData.chapters.map((c) => ({
-			...c,
-			originalContent: removeAttributes(c.content),
-		}));
+		if (browser) {
+			chapters = data.serieData.chapters.map((c) => ({
+				...c,
+				originalContent: removeAttributes(c.content, document),
+			}));
+		} else {
+			chapters = data.serieData.chapters.map((c) => ({
+				...c,
+				originalContent: c.content,
+			}));
+		}
 	}
 
 	const onChapterTransform = () => {
@@ -41,30 +50,6 @@
 			content: chapter.content,
 			url: chapter.url,
 		});
-	};
-
-	const walkTheDOM = (el: Element, callback: (el: Element) => void) => {
-		callback(el);
-		el = el.firstElementChild! || el.nextElementSibling!;
-		while (el) {
-			walkTheDOM(el, callback);
-			el = el.nextElementSibling!;
-		}
-	};
-
-	const removeAttributes = (html: string) => {
-		if (!document) return html;
-
-		const wrapper = document.createElement('div');
-		wrapper.innerHTML = html;
-		walkTheDOM(wrapper.firstElementChild!, (el) => {
-			if (el.removeAttribute) {
-				el.removeAttribute('class');
-				el.removeAttribute('style');
-				el.removeAttribute('id');
-			}
-		});
-		return wrapper.innerHTML;
 	};
 </script>
 

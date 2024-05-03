@@ -1,34 +1,11 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import type { ActionData } from './$types';
+	import { removeAttributes } from '$lib/Utilities/text';
 
 	export let form: ActionData;
 
 	let chapterContent = '';
-
-	const walkTheDOM = (el: Element, callback: (el: Element) => void) => {
-		callback(el);
-		el = el.firstElementChild! || el.nextElementSibling!;
-		while (el) {
-			walkTheDOM(el, callback);
-			el = el.nextElementSibling!;
-		}
-	};
-
-	const removeAttributes = (html: string) => {
-		if (!document) return html;
-
-		const wrapper = document.createElement('div');
-		wrapper.innerHTML = html;
-		walkTheDOM(wrapper.firstElementChild!, (el) => {
-			if (el.removeAttribute) {
-				el.removeAttribute('class');
-				el.removeAttribute('style');
-				el.removeAttribute('id');
-			}
-		});
-		return wrapper.innerHTML;
-	};
 </script>
 
 <svelte:head>
@@ -72,7 +49,7 @@
 			class="ml-auto mt-3 rounded bg-green-400 px-3 py-2 text-white transition-colors
 			duration-200 ease-in-out hover:bg-green-500"
 			on:click={() => {
-				chapterContent = removeAttributes(chapterContent);
+				chapterContent = removeAttributes(chapterContent, document);
 			}}
 		>
 			Clean-Up
